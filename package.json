@@ -1,0 +1,25 @@
+{
+  "name": "node-note-capstone",
+  "version": "1.0.0",
+  "description": "node-note-capstone",
+  "main": "config.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryrankin/node-note-capstone.git"
+  },
+  "keywords": [
+    "node",
+    "hyperdev",
+    "express"
+  ],
+  "author": "ryan rankin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryrankin/node-note-capstone/issues"
+  },
+  "homepage": "https://github.com/ryrankin/node-note-capstone#readme"
+}
