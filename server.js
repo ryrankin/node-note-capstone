@@ -35,13 +35,49 @@ app.get('notes/:id', (req, res) => {
 		.then(note => res.json(note.apiRepr()))
 		.catch(err => {
 			console.error(err);
-			res.status(500).json({error: 'something has gone wrong'});
+			res.status(500).json({error: 'Something has gone wrong'});
 		});
 });
 
 
 
-app.post
+app.post('notes', (req, res) => {
+	const requiredFields = ['title', 'content', 'date'];
+	for(let i=0; i <= requiredFields.length; i++){
+		const field = requiredFields[i];
+		if(!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body`
+			console.error(message);
+			return res.status(400).send(message);
+		}
+	}
+
+	Notes
+		.create({
+			title: req.body.title,
+			content: req.body.content,
+			date: req.body.date
+		})
+		.then(note => res.status(201).json(note.apiRepr()))
+		.catch(err => {
+			console.error(err);
+			res.status(500).json({error: 'Something has gone wrong'});
+		});
+});
+
+
+app.delete('notes/:id', (req, res) =>{
+	Notes
+		.findByIdAndRemove(req.params.id)
+		.exec()
+		.then(() => {
+			res.status(204).json({message: 'success'});
+		})
+		.catch(err => {
+			console.error(err);
+			res.status(500).json({error: 'Something has gone wrong'});
+		});
+	});
 
 
 
