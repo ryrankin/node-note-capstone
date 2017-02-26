@@ -4,7 +4,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 const {DATABASE_URL, PORT} = require('./config');
-const {Note} = require('./models');
+const {Notes} = require('./models');
+
+const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json())
@@ -146,7 +148,7 @@ function runServer(datbaseUrl=DATABASE_URL, port=PORT){
 
 function closeServer(){
 	return mongoose.disconnect().then(() => {
-		return new Promise((resolve, reject) =>{
+		return new Promise((resolve, reject) => {
 			console.log('Closing server');
 			server.close(err => {
 				if(err){

@@ -5,6 +5,6 @@ exports.DATABASE_URL = 'mongodb://ryrankin:Mn7u5g5a223@ds161179.mlab.com:61179/n
 
 exports.TEST_DATABASE_URL = (
 	process.env.TEST_DATABASE_URL ||
-	'mongodb://localhost/test-note-cap');
+	'mongodb://localhost/test-note-app');
 
 exports.PORT = process.env.PORT || 8080;
