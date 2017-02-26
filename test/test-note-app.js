@@ -1,5 +1,5 @@
 const chai = require('chai');
-const chatHttp = require('chai-http');
+const chaiHttp = require('chai-http');
 const faker = require('faker');
 const mongoose = require('mongoose');
 
