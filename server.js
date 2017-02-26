@@ -45,7 +45,7 @@ app.get('/notes/:id', (req, res) => {
 
 app.post('/notes', (req, res) => {
 	const requiredFields = ['title', 'content', 'date'];
-	for(let i=0; i <= requiredFields.length; i++){
+	for(let i=0; i < requiredFields.length; i++){
 		const field = requiredFields[i];
 		if(!(field in req.body)) {
 			const message = `Missing \`${field}\` in request body`
