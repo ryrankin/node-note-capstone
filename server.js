@@ -15,7 +15,7 @@ mongoose.Promise = global.Promise;
 
 
 
-app.get('/notes', (req, res) =>{
+app.get('/', (req, res) =>{
 	Notes
 		.find()
 		.exec()
@@ -30,7 +30,7 @@ app.get('/notes', (req, res) =>{
 			});
 		});
 
-app.get('/notes/:id', (req, res) => {
+app.get('/:id', (req, res) => {
 	Notes
 		.findById(req.params.id)
 		.exec()
@@ -43,7 +43,7 @@ app.get('/notes/:id', (req, res) => {
 
 
 
-app.post('/notes', (req, res) => {
+app.post('/', (req, res) => {
 	const requiredFields = ['title', 'content', 'date'];
 	for(let i=0; i < requiredFields.length; i++){
 		const field = requiredFields[i];
@@ -58,7 +58,8 @@ app.post('/notes', (req, res) => {
 		.create({
 			title: req.body.title,
 			content: req.body.content,
-			date: req.body.date
+			date: req.body.date,
+			time: req.body.time
 		})
 		.then(note => res.status(201).json(note.apiRepr()))
 		.catch(err => {
@@ -68,7 +69,7 @@ app.post('/notes', (req, res) => {
 });
 
 
-app.delete('/notes/:id', (req, res) =>{
+app.delete('/:id', (req, res) =>{
 	Notes
 		.findByIdAndRemove(req.params.id)
 		.exec()
@@ -83,7 +84,7 @@ app.delete('/notes/:id', (req, res) =>{
 
 
 
-app.put('/notes/:id', (req, res) =>{
+app.put('/:id', (req, res) =>{
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)){
 		res.status(400).json({
 			error: 'Request path id and request body id values must match'
