@@ -1,6 +1,6 @@
-var BASE_URL = 'https://obscure-ridge-73322.herokuapp.com/';
+var BASE_URL = 'https://obscure-ridge-73322.herokuapp.com';
 
-function getDataFromApi(searchTerm, callback) {
+/*function getDataFromApi(searchTerm, callback) {
   var settings = {
     url: BASE_URL,
     notes: '',
@@ -9,6 +9,14 @@ function getDataFromApi(searchTerm, callback) {
     success: callback
   };
   $.ajax(settings);
+}*/
+
+function getSearchResults(data){
+  return $.ajax({
+    method: 'GET',
+    url: '/',
+    data: data
+  });
 }
 
 

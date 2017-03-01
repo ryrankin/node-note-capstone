@@ -3,11 +3,11 @@ var RUNCALL = true;
 
 var getDataFromApi = function(searchTerm){
 	var query = {
-		method: 'GET', 'PUT', 'POST', 'DELETE',
+		method: ['GET', 'PUT', 'POST', 'DELETE'],
 		fields: ['id', 'title', 'content', 'date'],
 	};
 	$.ajax({
-		url: 'https://obscure-ridge-73322.herokuapp.com/notes',
+		url: 'https://obscure-ridge-73322.herokuapp.com/',
 		data: query,
 		success: function(data, e){
 			displayNotes(data);
@@ -28,20 +28,20 @@ function displayNotes(notes){
 			html += '<li>' + value.date + '</li><br>';
 		});
 	}
-	$('#searchResults').append(html);
-	$('#query').val('');
-	$('.resultsText').show();
+	$('.js-search-form').append(html);
+	$('.js-query').val('');
+	$('.js-search-results').show();
 }
 
 $(document.ready(function(){
-	$('.resultsText').hide();
+	$('.js-search-results').hide();
 
 	$('api-search').submit(function(e){
 		e.preventDefault();
-		if( $('#api-query').val.length === 0) {return false};
-		$('#searchResults').html('');
-		SEARCHTERM = $('#api-query').val();
-		$('.search').text(SEARCHTERM);
+		if( $('.js-query').val.length === 0) {return false};
+		$('.js-search-results').html('');
+		SEARCHTERM = $('.js-query').val();
+		$('.js-search-results').text(SEARCHTERM);
 		getDataFromApi(SEARCHTERM);
 		RUNCALL = true;
 	})
