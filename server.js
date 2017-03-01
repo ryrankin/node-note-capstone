@@ -10,7 +10,7 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json())
-
+app.use(express.static('client'));
 mongoose.Promise = global.Promise;
 
 

@@ -1,31 +1,30 @@
 var SEARCHTERM ='';
 var RUNCALL = true;
 
-var getDataFromApi = function(searchTerm){
-	var query = {
-		method: ['GET', 'PUT', 'POST', 'DELETE'],
-		fields: ['id', 'title', 'content', 'date'],
-	};
+var getDataFromApi = function(){
 	$.ajax({
-		url: 'https://obscure-ridge-73322.herokuapp.com/',
-		data: query,
+		url: '/notes',
 		success: function(data, e){
 			displayNotes(data);
 		},
 		dataType: 'json'
 	});
+}
 
 
 function displayNotes(notes){
 	var html = "";
-	if(notes.notes.length === 0){
+	if(notes.length === 0){
 		RUNCALL = false;
 		html += '<p>No search results for ' + SEARCHTERM + '</p>'
 	} else {
-		$.each(notes.notes, function(index, value){
-			html += '<li>' + value.title + '</li></br>';
-			html += '<li>' + value.content + '</li><br>';
-			html += '<li>' + value.date + '</li><br>';
+		$.each(notes, function(index, value){
+			html += '<div>' + 
+						'<li>Title: ' + value.title + '</li>' +
+						'<ul>Content: ' + value.content + '</ul>' +
+						'<ul>Date: ' + value.date + '</ul>' + 
+						'<ul>ID: ' + value.id + '</ul>' + 
+					'</div>';
 		});
 	}
 	$('.js-search-form').append(html);
@@ -33,9 +32,11 @@ function displayNotes(notes){
 	$('.js-search-results').show();
 }
 
-$(document.ready(function(){
+$(document).ready(function(){
 	$('.js-search-results').hide();
-
+	getDataFromApi();
+});
+/*
 	$('api-search').submit(function(e){
 		e.preventDefault();
 		if( $('.js-query').val.length === 0) {return false};
@@ -44,6 +45,5 @@ $(document.ready(function(){
 		$('.js-search-results').text(SEARCHTERM);
 		getDataFromApi(SEARCHTERM);
 		RUNCALL = true;
-	})
-}))
-}
+	})*/
+
