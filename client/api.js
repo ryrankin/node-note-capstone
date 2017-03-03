@@ -1,5 +1,8 @@
 var SEARCHTERM ='';
 var RUNCALL = true;
+var state = {
+	notes: []
+};
 
 var getDataFromApi = function(){
 	$.ajax({
@@ -11,31 +14,87 @@ var getDataFromApi = function(){
 	});
 }
 
+var createNote = function(title, content, date){
+	var post = {
+		title: title,
+		content: content,
+		date: date
+	};
 
-function displayNotes(notes){
+	$.ajax('/notes', {
+		type: 'POST',
+		data: JSON.stringify(post),
+		dataType: 'json',
+		contentType: 'application/json'
+	})
+	.done(displayNotes);
+}
+
+var updateNote = function(title, content, date, id){
+	var post = {
+		title: title,
+		content: content,
+		date: date,
+		id: id
+	}
+	$.ajax('notes/:id', {
+		type: 'PUT',
+		data: JSON.stringify(post),
+		dataType: 'json',
+		contentType: 'application/json'
+	})
+	.done(displayNotes);
+}
+
+var deleteNote = function(id){
+	$.ajax('/:id',{
+		type: 'DELETE',
+		dataType: 'json',
+		contentType: 'application/json'
+	})
+	.done(displayNotes);
+}	
+
+
+
+var displayNotes = function(notes){
 	var html = "";
 	if(notes.length === 0){
 		RUNCALL = false;
 		html += '<p>No search results for ' + SEARCHTERM + '</p>'
 	} else {
 		$.each(notes, function(index, value){
-			html += '<div>' + 
+			html += '<div class="inline-form-group">' + 
 						'<li>Title: ' + value.title + '</li>' +
-						'<ul>Content: ' + value.content + '</ul>' +
-						'<ul>Date: ' + value.date + '</ul>' + 
-						'<ul>ID: ' + value.id + '</ul>' + 
+						'<ul><b>Content:</b> ' + value.content + '</ul>' +
+						'<ul><b>Date:</b> ' + value.date + '</ul>' + 
+						'<ul><b>ID:</b> ' + value.id + '</ul>' + 
+						'<section>' +
+							'<div class="edit"><button class="div-button" id="edit">Edit</button></div>' +
+							'<div class="delete"><button class="div-button" id="delete">Delete</button></div>' +
+						'</section>' +
 					'</div>';
 		});
 	}
 	$('.js-search-form').append(html);
 	$('.js-query').val('');
-	$('.js-search-results').show();
 }
 
 $(document).ready(function(){
-	$('.js-search-results').hide();
 	getDataFromApi();
+
+
+	$('.delete').on('click', '.delete', function(){
+		var div = $(this).parent();
+		var span = div.siblings();
+		var value = span.text();
+		deleteItem(note, value);
+		getDataFromApi();	
+	});
+
 });
+
+
 /*
 	$('api-search').submit(function(e){
 		e.preventDefault();

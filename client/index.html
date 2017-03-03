@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
   <link rel="stylesheet" href="main.css">
 
   <title>Node Note Capstone</title>
@@ -12,14 +14,17 @@
   <h1>Search for notes</h1>
   <form action="#" class="js-search-form">
     <label for="query"></label>
-    <input type="text" class="js-query">
-    <button type="submit">Search</button>
+    <section>
+      <input type="text" class="js-query" placeholder="search notes...">
+    
+    <button type="submit" id="search">Search</button>
+    </section>
+    <section>
+      <button type="submit" id="add">New Note</button>
+    </section>
   </form>
   
-  <div class="js-search-results">
-    
-  </div>
-  
+
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script type="text/javascript" src="api.js"></script>
 </body>
