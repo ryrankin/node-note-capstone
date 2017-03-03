@@ -1,8 +1,8 @@
 var SEARCHTERM ='';
 var RUNCALL = true;
-var state = {
-	notes: []
-};
+var js-search-form = $('.js-search-form');
+
+
 
 var getDataFromApi = function(){
 	$.ajax({
@@ -13,6 +13,7 @@ var getDataFromApi = function(){
 		dataType: 'json'
 	});
 }
+
 
 var createNote = function(title, content, date){
 	var post = {
@@ -30,6 +31,7 @@ var createNote = function(title, content, date){
 	.done(displayNotes);
 }
 
+
 var updateNote = function(title, content, date, id){
 	var post = {
 		title: title,
@@ -45,6 +47,8 @@ var updateNote = function(title, content, date, id){
 	})
 	.done(displayNotes);
 }
+
+
 
 var deleteNote = function(id){
 	$.ajax('/:id',{
@@ -70,8 +74,8 @@ var displayNotes = function(notes){
 						'<ul><b>Date:</b> ' + value.date + '</ul>' + 
 						'<ul><b>ID:</b> ' + value.id + '</ul>' + 
 						'<section>' +
-							'<div class="edit"><button class="div-button" id="edit">Edit</button></div>' +
-							'<div class="delete"><button class="div-button" id="delete">Delete</button></div>' +
+							'<div class="edit-btn"><button class="div-button" id="edit">Edit</button></div>' +
+							'<div class="delete-btn"><button class="div-button" id="delete">Delete</button></div>' +
 						'</section>' +
 					'</div>';
 		});
@@ -83,26 +87,17 @@ var displayNotes = function(notes){
 $(document).ready(function(){
 	getDataFromApi();
 
+	$('.add-btn').on('click', function(event){
+		event.preventDefault();
+		createNote();
+		displayNotes();
+	});
 
-	$('.delete').on('click', '.delete', function(){
-		var div = $(this).parent();
-		var span = div.siblings();
-		var value = span.text();
+
+	$('.js-search-form')on('click', '.delete-btn', function(){
+		var id = $(this).parent().attr('id');
 		deleteItem(note, value);
-		getDataFromApi();	
 	});
 
 });
-
-
-/*
-	$('api-search').submit(function(e){
-		e.preventDefault();
-		if( $('.js-query').val.length === 0) {return false};
-		$('.js-search-results').html('');
-		SEARCHTERM = $('.js-query').val();
-		$('.js-search-results').text(SEARCHTERM);
-		getDataFromApi(SEARCHTERM);
-		RUNCALL = true;
-	})*/
 
