@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const noteSchema = mongoose.Schema({
 	title: {type: String, required: true},
 	content: {type: String},
-	date: {type: Date, default: Date.now},
+	date: {type: Date}
 });
 
 
@@ -13,7 +13,6 @@ noteSchema.methods.apiRepr = function(){
 		title: this.title,
 		content: this.content,
 		date: this.date,
-		time: this.time
 	};
 }
 

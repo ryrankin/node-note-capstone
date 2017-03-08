@@ -10,19 +10,6 @@ body {
 
 }
 
-input[type=text], select {
-    min-width: 150px;
-    max-width: 300px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-left: 10px;
-    position: relative;
-}
-
 #search[type=submit] {
     min-width: 100px;
     max-width: 300px;
@@ -35,6 +22,26 @@ input[type=text], select {
     color: 1px solid #d9d9d9;
     margin-left: 10px;
     position: relative;
+}
+
+input[type="text"]{
+	height: 50px;
+	width: 40%;
+	margin-bottom: 10px;
+}
+
+.toolbar {
+  margin: 0;
+  width: 100%;
+  background-color: grey;
+  color: white;
+  text-align: center;
+}
+
+.toolbar-text {
+  margin: 0;
+  padding: 0.5rem;
+  display: inline-block;
 }
 
 #add{
@@ -78,8 +85,6 @@ li {
 	flex-wrap: wrap;
 	vertical-align: baseline;
 }
-
-.js-query {
-	height: 30px;
-
+.hidden {
+	visibility: hidden;
 }

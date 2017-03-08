@@ -7,11 +7,17 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
   <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="normalize.css">
 
   <title>Node Note Capstone</title>
 </head>
 <body>
-  <h1>Search for notes</h1>
+  <div class="toolbar">
+    <p class="toolbar-text">Note management tool built on MongoDB, Express, and Node.js</p>
+  </div>
+
+  <div class="half-width left">
+    <h1>Search for notes</h1>
   <form action="#" class="js-search-form">
     <label for="query"></label>
     <section>
@@ -22,7 +28,12 @@
     <section>
       <button type="submit" class="add-btn">New Note</button>
     </section>
+
+    <section class="post-form">
+    </section>
   </form>
+</div>
+
   
 
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>

@@ -1,6 +1,6 @@
 var SEARCHTERM ='';
 var RUNCALL = true;
-var js-search-form = $('.js-search-form');
+var js_search_form = $('.js-search-form');
 
 
 
@@ -39,7 +39,7 @@ var updateNote = function(title, content, date, id){
 		date: date,
 		id: id
 	}
-	$.ajax('notes/:id', {
+	$.ajax('/notes/:id', {
 		type: 'PUT',
 		data: JSON.stringify(post),
 		dataType: 'json',
@@ -51,12 +51,12 @@ var updateNote = function(title, content, date, id){
 
 
 var deleteNote = function(id){
-	$.ajax('/:id',{
+	$.ajax('/notes/' + id, {
 		type: 'DELETE',
 		dataType: 'json',
 		contentType: 'application/json'
 	})
-	.done(displayNotes);
+	.done(getDataFromApi);
 }	
 
 
@@ -69,23 +69,24 @@ var displayNotes = function(notes){
 	} else {
 		$.each(notes, function(index, value){
 			html += '<div class="inline-form-group">' + 
-						'<li>Title: ' + value.title + '</li>' +
-						'<ul><b>Content:</b> ' + value.content + '</ul>' +
-						'<ul><b>Date:</b> ' + value.date + '</ul>' + 
-						'<ul><b>ID:</b> ' + value.id + '</ul>' + 
+						'<li>' + value.title + '</li>' +
+						'<ul>' + value.content + '</ul>' +
+						'<ul>' + value.date + '</ul>' + 
+						'<ul id="id" style="display:none">' + value.id + '</ul>' +
 						'<section>' +
-							'<div class="edit-btn"><button class="div-button" id="edit">Edit</button></div>' +
-							'<div class="delete-btn"><button class="div-button" id="delete">Delete</button></div>' +
+							'<div class="delete-btn">' +
+							'<button class="div-button">Delete</button>' +
+							'</div>' +
 						'</section>' +
 					'</div>';
 		});
 	}
-	$('.js-search-form').append(html);
+	$('.js-search-form').html(html);
 	$('.js-query').val('');
 }
 
 $(document).ready(function(){
-	getDataFromApi();
+	getDataFromApi();	
 
 	$('.add-btn').on('click', function(event){
 		event.preventDefault();
@@ -93,11 +94,16 @@ $(document).ready(function(){
 		displayNotes();
 	});
 
+	$('div').on('click', '.delete-btn > .div-button', function(){
+		var id = $(this).parent().parent().siblings('#id').html();
+		deleteNote(id);		
+	});
 
-	$('.js-search-form')on('click', '.delete-btn', function(){
+
+/*	$('.js_search_form').on('click', '.delete-btn', function(){
 		var id = $(this).parent().attr('id');
 		deleteItem(note, value);
-	});
+	});*/
 
 });
 

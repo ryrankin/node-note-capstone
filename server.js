@@ -58,8 +58,7 @@ app.post('/notes', (req, res) => {
 		.create({
 			title: req.body.title,
 			content: req.body.content,
-			date: req.body.date,
-			time: req.body.time
+			date: req.body.date
 		})
 		.then(note => res.status(201).json(note.apiRepr()))
 		.catch(err => {
@@ -72,7 +71,6 @@ app.post('/notes', (req, res) => {
 app.delete('/notes/:id', (req, res) =>{
 	Notes
 		.findByIdAndRemove(req.params.id)
-		.exec()
 		.then(() => {
 			res.status(204).json({message: 'success'});
 		})
@@ -85,9 +83,9 @@ app.delete('/notes/:id', (req, res) =>{
 
 
 app.put('/notes', (req, res) =>{
-	if (!(req.params.id && req.body.id && req.params.id === req.body.id)){
-		res.status(400).json({
-			error: 'Request path id and request body id values must match'
+	if (!req.body.id){
+		return res.status(400).json({
+			error: 'Missing ID'
 		});
 	}
 	const updated = {};
@@ -97,11 +95,10 @@ app.put('/notes', (req, res) =>{
 			updated[field] = req.body[field];
 		}
 	});
-
+	console.log(updated);
 
 	Notes
-		.findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
-		.exec()
+		.findByIdAndUpdate(req.body.id, {$set: updated}, {new: true})
 		.then(updatedNote => res.status(201).json(updatedNote.apiRepr()))
 		.catch(err => res.status(500).json({message : 'Something went wrong'}));
 });
@@ -110,7 +107,6 @@ app.put('/notes', (req, res) =>{
 app.delete('/notes/:id', (req, res) => {
 	Notes
 		.findByIdAndRemove(req.params.id)
-		.exec()
 		.then(() => {
 			console.log(`Deleted blog post with id \`${req.params.ID}\``);
 			res.status(204).end();
@@ -124,6 +120,8 @@ app.delete('/notes/:id', (req, res) => {
 app.use('*', function(req, res){
 	res.status(404).json({message: 'Not Found'});
 });
+
+
 
 let server;
 
