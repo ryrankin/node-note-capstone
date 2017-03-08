@@ -109,3 +109,8 @@ li {
 .hidden {
 	visibility: hidden;
 }
+
+.title-warning{
+  color:red;
+  font-style: italic;
+}
