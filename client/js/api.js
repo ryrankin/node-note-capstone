@@ -64,7 +64,7 @@ var populatePostForm = function(post){
 	postForm.children('.title-box').val(post.title);
 	postForm.children('.content-box').val(post.content);
 	postForm.children('.date-box').val(post.date);
-	postForm.attr("name", post._id);
+	postForm.attr('id', post._id);
 }
 
 var clearForm = function(){
@@ -116,46 +116,35 @@ $(document).ready(function(){
 		}
 	});
 
-
 	$('div').on('click', '.inline-form-group', function(){			
 		$(this).find('.hider').toggle('fast');
 	});
-
-
-/*	$('.delete').on("click", function (e) {
-    e.preventDefault();
-
-    var choice = confirm($(this).attr('data-confirm'));
-
-    if (choice) {
-        window.location.href = $(this).attr('href');
-    }
-}); */
 
 	$('.clear-btn').on('click', function(event){
 		event.preventDefault();
 		clearForm();
 	})
 
-
 	$('.submit-btn').on('click', function(event){
 		event.preventDefault();
 		var title = $(this).parent().children('.title-box').val();
+		console.log(title);
 		var content = $(this).parent().children('.content-box').val();
-		var date = $(this).parent().children('.date-box');
+		console.log(content);
+		var date = $('#date').context.lastModified;
 
-		var id = $(this).parent().attr('id');
+		console.log($('#date'));
+
+		var id = $(this).parent().attr('#id');
+		console.log(id);
 
 		if(title == ''){
 			$('.title-warning').text(' * required field');
 		} else {
-			if(!(title && content == '')){
-				createNote(title, content, date);
-			} else {
-				updateNote(id, title, content, date);
-			}
+			createNote(title, content, date, id);
+			getDataFromApi();
 		}
-	})
+	});
 
 });
 
