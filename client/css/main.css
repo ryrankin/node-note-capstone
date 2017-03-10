@@ -2,11 +2,16 @@
 	box-sizing: border-box;
 }
 
+#main{
+	display: none;
+}
+
 body {
-	padding: 30px;
 	border: 1px;
-	background-color: powderblue;
+	background-color: none;
 	font-family: 'Roboto', sans-serif;
+	margin-bottom: 60px;
+
 
 }
 
@@ -36,6 +41,7 @@ body {
 
 .half-width{
 	width: 50%;
+	padding-left: 40px;
 }
 
 .left{
@@ -58,27 +64,8 @@ h1{
 	text-align: left;
 }
 
-#add{
-	min-width: 300px;
-	max-width: 300px;
-	cursor: pointer;
-	margin: 8px 0;
-	border-radius: 4px;
-	color: 1px solid #d9d9d9;
-	background-color: #4CAF50;
-	position: relative;
-	margin-left: 10px;
-}
-
-.div-button{
-	position: relative;
-	margin-left: 100px;
-	background-color: #4CAF50;
-	border-radius: 4px;
-	cursor: pointer;
-    color: 1px solid #d9d9d9;
-
-
+#search-h1{
+	padding-left: 10px;
 }
 
 li {
@@ -89,7 +76,7 @@ li {
 }
 
 .inline-form-group {
-	padding: 10px;
+	background-color: lightgrey;
 	border: 1.5px solid black;
 	margin: 10px;
 	min-width: 300px;
@@ -99,12 +86,27 @@ li {
 	vertical-align: baseline;
 }
 
+#title{
+	table-layout: 
+}
+
+.hider{
+	text-align: left;
+	padding-right: 30px;
+}
+
+.div-button{
+	display: inline-block;
+	margin-left: 80px;
+}
+
 .post-form{
 	height: 400px;
 }
 
 .js-query{
-	width: 60%;
+	width: 45%;
+	margin-top: 10px;
 }
 .hidden {
 	visibility: hidden;
@@ -113,4 +115,12 @@ li {
 .title-warning{
   color:red;
   font-style: italic;
+}
+
+.date-box{
+	margin-bottom: 10px;
+}
+
+.query{
+	margin-left: 10px;
 }

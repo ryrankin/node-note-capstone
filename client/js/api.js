@@ -76,6 +76,8 @@ var clearForm = function(){
 }
 
 
+
+
 var displayNotes = function(notes){
 	var html = "";
 	if(notes.length === 0){
@@ -83,16 +85,16 @@ var displayNotes = function(notes){
 		html += '<p>No search results for ' + SEARCHTERM + '</p>'
 	} else {
 		$.each(notes, function(index, value){
-			html += '<div class="inline-form-group">' + 
-						'<li>' + value.title + '</li>' +
-						'<ul>' + value.content + '</ul>' +
-						'<ul>' + value.date + '</ul>' + 
+			var date = new Date(value.date);
+					html += 
+					'<div class="inline-form-group">' + 
+						'<li id="title">' + value.title + '</li>' +
+						'<ul class="hider">' + value.content + '</ul>' +
+						'<ul class="hider" id="date">' + date.toDateString() + '</ul>' + 
 						'<ul id="id" style="display:none">' + value.id + '</ul>' +
-						'<section>' +
 							'<div class="delete-btn">' +
 							'<button class="div-button">Delete</button>' +
-							'</div>' +
-						'</section>' +
+							'</div><br>' +
 					'</div>';
 		});
 	}
@@ -105,21 +107,31 @@ var displayNotes = function(notes){
 $(document).ready(function(){
 	getDataFromApi();	
 
-	$('.add-btn').on('click', function(event){
-		event.preventDefault();
-		createNote();
-		displayNotes();
+	$('div').on('click', '.delete-btn > .div-button', function(){
+		var id = $(this).parent().siblings('#id').html();
+		deleteNote(id);		
+	})
+
+	$('div').on('click', '.inline-form-group', function(){
+		$(this).find('.hider').toggle('fast');
 	});
 
-	$('div').on('click', '.delete-btn > .div-button', function(){
-		var id = $(this).parent().parent().siblings('#id').html();
-		deleteNote(id);		
-	});
+
+/*	$('.delete').on("click", function (e) {
+    e.preventDefault();
+
+    var choice = confirm($(this).attr('data-confirm'));
+
+    if (choice) {
+        window.location.href = $(this).attr('href');
+    }
+}); */
 
 	$('.clear-btn').on('click', function(event){
 		event.preventDefault();
 		clearForm();
 	})
+
 
 	$('.submit-btn').on('click', function(event){
 		event.preventDefault();
@@ -132,13 +144,13 @@ $(document).ready(function(){
 		if(title == ''){
 			$('.title-warning').text(' * required field');
 		} else {
-			if(id == ''){
+			if(!(title && content == '')){
 				createNote(title, content, date);
 			} else {
 				updateNote(id, title, content, date);
 			}
 		}
-	});
+	})
 
 
 /*	$('.js_search_form').on('click', '.delete-btn', function(){

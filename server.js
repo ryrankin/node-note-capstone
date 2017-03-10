@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const {DATABASE_URL, PORT} = require('./config');
 const {Notes} = require('./models');
