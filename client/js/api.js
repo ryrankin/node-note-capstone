@@ -109,10 +109,15 @@ $(document).ready(function(){
 
 	$('div').on('click', '.delete-btn > .div-button', function(){
 		var id = $(this).parent().siblings('#id').html();
-		deleteNote(id);		
-	})
+		if (!confirm('Are you sure you want to delete?')){
+			return false;
+		 } else {
+			deleteNote(id);	
+		}
+	});
 
-	$('div').on('click', '.inline-form-group', function(){
+
+	$('div').on('click', '.inline-form-group', function(){			
 		$(this).find('.hider').toggle('fast');
 	});
 
@@ -151,12 +156,6 @@ $(document).ready(function(){
 			}
 		}
 	})
-
-
-/*	$('.js_search_form').on('click', '.delete-btn', function(){
-		var id = $(this).parent().attr('id');
-		deleteItem(note, value);
-	});*/
 
 });
 

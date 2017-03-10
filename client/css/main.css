@@ -93,6 +93,7 @@ li {
 .hider{
 	text-align: left;
 	padding-right: 30px;
+	display: none;
 }
 
 .div-button{
