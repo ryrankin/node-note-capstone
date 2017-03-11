@@ -4,7 +4,6 @@ var js_search_form = $('.js-search-form');
 var postForm = $('#post-form')
 
 
-
 var getDataFromApi = function(){
 	$.ajax({
 		url: '/notes',
@@ -14,7 +13,6 @@ var getDataFromApi = function(){
 		dataType: 'json'
 	});
 }
-
 
 var createNote = function(title, content, date){
 	var post = {
@@ -32,13 +30,11 @@ var createNote = function(title, content, date){
 	.done(displayNotes);
 }
 
-
-var updateNote = function(title, content, date, id){
+var updateNote = function(title, content, date){
 	var post = {
 		title: title,
 		content: content,
 		date: date,
-		id: id
 	}
 	$.ajax('/notes/:id', {
 		type: 'PUT',
@@ -48,8 +44,6 @@ var updateNote = function(title, content, date, id){
 	})
 	.done(displayNotes);
 }
-
-
 
 var deleteNote = function(id){
 	$.ajax('/notes/' + id, {
@@ -61,10 +55,10 @@ var deleteNote = function(id){
 }	
 
 var populatePostForm = function(post){
-	postForm.children('.title-box').val(post.title);
-	postForm.children('.content-box').val(post.content);
-	postForm.children('.date-box').val(post.date);
-	postForm.attr('id', post._id);
+	postForm.children('.title-box').val(title[0].innerHTML);
+	postForm.children('.content-box').val(content[0].innerHTML);
+	postForm.children('.date-box').val(date[0].innerHTML);
+	postForm.attr(id[0].innerHTML);
 }
 
 var clearForm = function(){
@@ -74,9 +68,6 @@ var clearForm = function(){
 	postForm.attr('id', '');
 	$('.title-warning').text('');
 }
-
-
-
 
 var displayNotes = function(notes){
 	var html = "";
@@ -89,11 +80,12 @@ var displayNotes = function(notes){
 					html += 
 					'<div class="inline-form-group">' + 
 						'<li id="title">' + value.title + '</li>' +
-						'<ul class="hider">' + value.content + '</ul>' +
-						'<ul class="hider" id="date">' + date.toDateString() + '</ul>' + 
+						'<ul id="content" class="hider">' + value.content + '</ul>' +
+						'<ul id="date" class="hider">' + date.toDateString() + '</ul>' + 
 						'<ul id="id" style="display:none">' + value.id + '</ul>' +
 							'<div class="delete-btn">' +
 							'<button class="div-button">Delete</button>' +
+							'<button class="edit-button">Edit</button>' +
 							'</div><br>' +
 					'</div>';
 		});
@@ -116,35 +108,46 @@ $(document).ready(function(){
 		}
 	});
 
+	$('div').on('click', '.delete-btn > .edit-button', function(){
+		var title = $('#title').val();
+		var content = $('#content').val();
+		var date = $('#date').val();
+		var id = $('#id').val();
+		populatePostForm(title, content, date);
+		deleteNote(this);
+	});
+
 	$('div').on('click', '.inline-form-group', function(){			
 		$(this).find('.hider').toggle('fast');
+	});
+
+	$('.submit-btn').on('click', function(event){
+		event.preventDefault();
+		var title = $(this).parent().children('.title-box').val();
+		var content = $(this).parent().children('.content-box').val();
+		var date = $('#date').context.lastModified;
+		var id = $(this).parent().attr('#id');
+
+		if(title == ''){
+			$('.title-warning').text(' * required field');
+		} else {
+			createNote(title, content, date);
+			getDataFromApi();
+		}
 	});
 
 	$('.clear-btn').on('click', function(event){
 		event.preventDefault();
 		clearForm();
-	})
-
-	$('.submit-btn').on('click', function(event){
-		event.preventDefault();
-		var title = $(this).parent().children('.title-box').val();
-		console.log(title);
-		var content = $(this).parent().children('.content-box').val();
-		console.log(content);
-		var date = $('#date').context.lastModified;
-
-		console.log($('#date'));
-
-		var id = $(this).parent().attr('#id');
-		console.log(id);
-
-		if(title == ''){
-			$('.title-warning').text(' * required field');
-		} else {
-			createNote(title, content, date, id);
-			getDataFromApi();
-		}
 	});
 
 });
+
+
+
+
+
+
+
+
 
