@@ -1,5 +1,4 @@
-var SEARCHTERM ='';
-var RUNCALL = true;
+var searchString ='';
 var js_search_form = $('.js-search-form');
 var postForm = $('#post-form')
 
@@ -9,6 +8,16 @@ var getDataFromApi = function(){
 		url: '/notes',
 		success: function(data, e){
 			displayNotes(data);
+		},
+		dataType: 'json'
+	});
+}
+
+var updateSearch = function(){
+	$.ajax({
+		url: '/search?search=' + query,
+		success: function(data, e){
+		dataisplayNotes(data);
 		},
 		dataType: 'json'
 	});
@@ -67,8 +76,8 @@ var clearForm = function(){
 var displayNotes = function(notes){
 	var html = "";
 	if(notes.length === 0){
-		RUNCALL = false;
-		html += '<p>No search results for ' + SEARCHTERM + '</p>'
+		getDataFromApi();
+		//html += '<p>No search results for ' + SEARCHTERM + '</p>';
 	} else {
 		$.each(notes, function(index, value){
 			var date = new Date(value.date);
@@ -87,7 +96,7 @@ var displayNotes = function(notes){
 		});
 	}
 	$('.js-search-form').html(html);
-	$('.js-query').val('');
+	
 }
 
 
@@ -112,7 +121,8 @@ $(document).ready(function(){
 	$('.submit-btn').on('click', function(event){
 		event.preventDefault();
 		var title = $(this).parent().children('.title-box').val();
-		var content = $(this).parent().children('.content-box').val();
+		var text = $(this).parent().children('.content-box').val();
+		var	content = text.replace(/\r?\n/g, '<br />');
 		var date = $('#date').context.lastModified;
 		var id = $(this).parent().attr('#id');
 
@@ -123,6 +133,7 @@ $(document).ready(function(){
 			createNote(title, content, date);
 			}		
 		clearForm();
+		getDataFromApi();
 	});
 
 	$('.clear-btn').on('click', function(event){
@@ -147,8 +158,35 @@ $(document).ready(function(){
 			},
 			dataType: 'json'
 		});
+	})
+	$('.js-query').keydown(function(e){
+		if(e.which == 13){
+		$('#search').click();
+		}
 	});
+
+	$('js.query').keyup(function(){
+		var query = $(this).val(), count = 0;
+		$('.inline-form-group ul').each(function(){
+			if ($(this).text().search(new RegExp(query, "i")) < 0){
+				$(this).fadeOut();
+			} else {
+				$(this).show();
+				count++
+			}
+		})
+	});
+
+
 });
+
+/*	$('.js-query').keypress(function(e){
+		if(e.which == 8){
+			$('#search').click();
+		} else {
+			getDataFromApi();
+		}
+	}) */
 
 /*  $('div').on('click', '.delete-btn > .edit-button', function(){
 		var title = $('#title');
