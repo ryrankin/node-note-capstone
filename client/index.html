@@ -4,9 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
+  <link rel="stylesheet" href="/css/gstatic.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/normalize.css">
 
@@ -17,9 +16,10 @@
 
   <div class="toolbar">
     <p class="lead">Note management tool built on MongoDB, Express, and Node.js</p>
+    <img src="plus.png" id="plus">
   </div>
 
-  <div class="half-width left">
+  <div class="half-width right" id="new-note">
     <h1 class="lead">Create new note</h1>
       <form id="post-form" name="">
         Title<span class="title-warning"></span><br>
@@ -33,12 +33,13 @@
     </form><br>
   </div>
 
+
     
-  <div class="half-width right">
+  <div class="half-width left">
   <h1 lead="lead" id="search-h1">Search Notes</h1>
     <div class="query">
       <input type="text" class="js-query" placeholder="search notes...">
-      <button type="submit" id="search">Search</button>
+      <button class="btn search-btn" type="submit" id="search">Search</button>
     </div>
     <form action="#" class="js-search-form">
     </form>

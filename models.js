@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
 
 const noteSchema = mongoose.Schema({
 	title: {type: String, required: true},
-	content: {type: String},
+	content: {type: String, text: true},
 	date: {type: Date, default: Date.now }
 });
+noteSchema.index({content: 'text'});
 
 
 noteSchema.methods.apiRepr = function(){
@@ -17,6 +17,7 @@ noteSchema.methods.apiRepr = function(){
 
 	};
 }
+
 
 const Notes = mongoose.model('Notes', noteSchema);
 

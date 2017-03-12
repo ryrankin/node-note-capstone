@@ -19,7 +19,7 @@ var createNote = function(title, content, date){
 		title: title,
 		content: content,
 		date: date
-	};
+	}
 
 	$.ajax('/notes', {
 		type: 'POST',
@@ -27,15 +27,17 @@ var createNote = function(title, content, date){
 		dataType: 'json',
 		contentType: 'application/json'
 	})
-	.done(displayNotes);
+	.done(getDataFromApi());
 }
 
-var updateNote = function(title, content, date){
+var updateNote = function(title, content, date, id){
 	var post = {
 		title: title,
 		content: content,
 		date: date,
+		id: id
 	}
+
 	$.ajax('/notes/:id', {
 		type: 'PUT',
 		data: JSON.stringify(post),
@@ -53,13 +55,6 @@ var deleteNote = function(id){
 	})
 	.done(getDataFromApi);
 }	
-
-var populatePostForm = function(post){
-	postForm.children('.title-box').val(title[0].innerHTML);
-	postForm.children('.content-box').val(content[0].innerHTML);
-	postForm.children('.date-box').val(date[0].innerHTML);
-	postForm.attr(id[0].innerHTML);
-}
 
 var clearForm = function(){
 	postForm.children('.title-box').val('');
@@ -84,10 +79,11 @@ var displayNotes = function(notes){
 						'<ul id="date" class="hider">' + date.toDateString() + '</ul>' + 
 						'<ul id="id" style="display:none">' + value.id + '</ul>' +
 							'<div class="delete-btn">' +
-							'<button class="div-button">Delete</button>' +
-							'<button class="edit-button">Edit</button>' +
+								'<button class="btn div-button">' +
+									'<img src="delete.png" id="delete">' +
+								'</button>' +
 							'</div><br>' +
-					'</div>';
+						'</div>';
 		});
 	}
 	$('.js-search-form').html(html);
@@ -104,17 +100,9 @@ $(document).ready(function(){
 		if (!confirm('Are you sure you want to delete?')){
 			return false;
 		 } else {
-			deleteNote(id);	
+			deleteNote(id);
+			clearForm();	
 		}
-	});
-
-	$('div').on('click', '.delete-btn > .edit-button', function(){
-		var title = $('#title').val();
-		var content = $('#content').val();
-		var date = $('#date').val();
-		var id = $('#id').val();
-		populatePostForm(title, content, date);
-		deleteNote(this);
 	});
 
 	$('div').on('click', '.inline-form-group', function(){			
@@ -130,10 +118,11 @@ $(document).ready(function(){
 
 		if(title == ''){
 			$('.title-warning').text(' * required field');
-		} else {
+		} 
+		else {
 			createNote(title, content, date);
-			getDataFromApi();
-		}
+			}		
+		clearForm();
 	});
 
 	$('.clear-btn').on('click', function(event){
@@ -141,7 +130,36 @@ $(document).ready(function(){
 		clearForm();
 	});
 
+	$('#plus').on('click', function(event){
+		$('#new-note').toggle(function(){
+			$(this).parent().animate({right:'0px'}, {queue: false, duration: 500});
+		}, function(){
+			$(this).parent().animate({right:'-280px'}, {queue: false, duration:500});
+		});
+	});
+
+	$('#search').on('click', function(){
+		var query = $('.js-query').val();
+		$.ajax({
+			url: '/search?search=' + query,
+			success: function(data, e){
+			displayNotes(data);
+			},
+			dataType: 'json'
+		});
+	});
 });
+
+/*  $('div').on('click', '.delete-btn > .edit-button', function(){
+		var title = $('#title');
+		var content = $('#content').val();
+		var date = $('#date').val();
+		var id = $(this).parent().attr('#id');
+	//	var id = $('#id');
+		console.log(id);
+		populatePostForm(title, content, date, id);
+	}); */
+
 
 
 

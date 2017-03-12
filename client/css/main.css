@@ -7,16 +7,30 @@
 }
 
 body {
-	border: 1px;
+	border: 0px;
 	background-color: none;
 	font-family: 'Roboto', sans-serif;
-	margin-bottom: 60px;
-
-
+	min-width: 500px;
 }
 
-#submit[type=submit] {
+body > .btn {
+    background: #428BCA;
+    color: #fff;
+    font-family: Sans-serif;
+    font-size: 16px;
+    height: 40px;
+    width: 100px;
+    line-height: 40px;
+    margin: 25px 25px;
+    text-align: center;
+    border: 0;
+    transition: all 0.3s ease 0s;
+}
+
+#search[type=submit] {
     background-color: #4CAF50;
+    background: #428BCA;
+    color: #fff;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
@@ -32,6 +46,7 @@ body {
   background-color: grey;
   color: white;
   text-align: center;
+  line-height: 30px;
 }
 
 .toolbar-text {
@@ -47,12 +62,26 @@ body {
 .left{
   float:left;
 }
+
 .right{
   float:right;
 }
 
 .half-width .right{
 	margin-top: 10px;
+	position: absolute;
+	display: hidden;
+}
+
+#plus{
+	width:20px;
+	height: 20px;
+	float: right;
+	position: fixed;
+}
+
+#new-note{
+	display: none;
 }
 
 .form-field{
@@ -65,11 +94,12 @@ h1{
 }
 
 #search-h1{
-	padding-left: 10px;
+	padding-left: 0px;
 }
 
 li {
 	padding: 10px;
+	padding-top:15px;
 	font-weight: bold;	
 	list-style-type: circle;
 	text-decoration-style: bold;
@@ -77,17 +107,34 @@ li {
 
 .inline-form-group {
 	background-color: lightgrey;
-	border: 1.5px solid black;
-	margin: 10px;
-	min-width: 300px;
+	border: none;
+	margin: 0px;
+	min-width: 200px;
 	max-width: 50%;
 	border-radius: 5px;
 	flex-wrap: wrap;
 	vertical-align: baseline;
+	margin-bottom: 10px;
+	margin-top: 25px;
 }
 
-#title{
-	table-layout: 
+#delete{
+	height: 15px;
+	width: 15px;
+	margin-top: 4px;
+}
+
+.delete-btn{
+	float: right;
+	display: block;	
+	margin-right: 20px;
+	margin-top: -40px;
+	max-width: 15px;
+}
+
+#content{
+	word-break: normal;
+	text-rendering: auto;
 }
 
 .hider{
@@ -96,9 +143,21 @@ li {
 	display: none;
 }
 
-.div-button{
+.submit-btn{
 	display: inline-block;
 	margin-left: 10px;
+	background: #428BCA;
+    color: #fff;
+    font-family: Sans-serif;
+    font-size: 12px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    border: 0;
+    transition: all 0.3s ease 0s;
+}
+.btn div-button{
+
 }
 
 .post-form{
@@ -106,8 +165,10 @@ li {
 }
 
 .js-query{
-	width: 45%;
+	width: 48%;
 	margin-top: 10px;
+	padding-left: -20px;
+	min-width: 50px;
 }
 .hidden {
 	visibility: hidden;
@@ -121,7 +182,10 @@ li {
 .date-box{
 	margin-bottom: 10px;
 }
+.content-box{
+	height: 100px;
+}
 
 .query{
-	margin-left: 10px;
+	margin-left: 0px;
 }

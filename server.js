@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const moment = require('moment');
+const searchString = '';
 
 const {DATABASE_URL, PORT} = require('./config');
 const {Notes} = require('./models');
@@ -39,7 +39,21 @@ app.get('/notes/:id', (req, res) => {
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({error: 'Something has gone wrong'});
-		});
+		}); 
+	});
+
+app.get('/search', (req, res) => {
+	var searchString = req.query.search;
+	console.log(searchString);
+	Notes.find({$text: {$search: searchString}})
+	.limit(10)
+	.exec(function(err, notes){
+		if(err){
+			res.status(500).json({error: 'Search went wrong'});
+		} else {
+			res.json(notes.map(note => note.apiRepr()));
+		}
+	});
 });
 
 
@@ -83,7 +97,7 @@ app.delete('/notes/:id', (req, res) =>{
 
 
 
-app.put('/notes', (req, res) =>{
+app.put('/notes/:id', (req, res) =>{
 	if (!req.body.id){
 		return res.status(400).json({
 			error: 'Missing ID'
@@ -114,14 +128,9 @@ app.delete('/notes/:id', (req, res) => {
 		});
 });
 
-
-
-
-
 app.use('*', function(req, res){
 	res.status(404).json({message: 'Not Found'});
 });
-
 
 
 let server;
@@ -144,7 +153,6 @@ function runServer(datbaseUrl=DATABASE_URL, port=PORT){
 	});
 }
 
-
 function closeServer(){
 	return mongoose.disconnect().then(() => {
 		return new Promise((resolve, reject) => {
@@ -158,7 +166,6 @@ function closeServer(){
 		});
 	});
 }
-
 
 if(require.main === module){
 	runServer().catch(err => console.error(err));
