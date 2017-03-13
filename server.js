@@ -45,7 +45,9 @@ app.get('/notes/:id', (req, res) => {
 app.get('/search', (req, res) => {
 	var searchString = req.query.search;
 	console.log(searchString);
-	Notes.find({$text: {$search: searchString}})
+	Notes.find({$text: {
+		$search: searchString,
+		$diacriticSensitive: true }})
 	.limit(10)
 	.exec(function(err, notes){
 		if(err){

@@ -43,7 +43,7 @@ body {
     font-size: 14px;
     text-align: center;
     border: none;
-    border-radius: 4px 20px 4px;
+    border-radius: 4px 16px 4px;
     cursor: pointer;
     color: 1px solid #d9d9d9;
     margin-left: 10px;
@@ -87,14 +87,11 @@ body {
 }
 
 #plus{
-	width: 50px;
-	height: 50px;
-	float: right;
-	border-radius: 50%;
-	margin-right: -10px;
+	width: 40px;
+	height: 40px;
+	float: center;
 	position: inherit;
 	cursor: pointer;
-	margin-right: 50px;
 }
 
 #new-note{
@@ -115,14 +112,16 @@ h1{
 	min-width: 100px;
 }
 
-li {
+#title {
 	padding: 10px;
 	padding-top:15px;
 	font-weight: bold;	
-	list-style-type: blue;
-	text-decoration-style: bold;
+	font-size: 16px;
+	text-align: left;
+	text-overflow: ellipsis;
+	max-width: 170px;
+	list-style: none;
 }
-
 
 .inline-form-group {
 	background-color: lightgrey;
@@ -135,6 +134,7 @@ li {
 	vertical-align: baseline;
 	margin-bottom: 10px;
 	margin-top: 25px;
+
 }
 
 #delete{
@@ -147,8 +147,9 @@ li {
 	background-color: lightgrey;
 	position: inherit;
 	float: right;
-	opacity: 0.4;
+	opacity:0.8;
 	cursor: pointer;
+	clear: left;
 }
 
 .div-button{
@@ -162,19 +163,17 @@ li {
 }
 
 #content{
-	word-break: normal;
-	text-rendering: auto;
 	width: 80%;
+	padding-right: 10px;
+	margin-right: 10px;
+	float: left;
 }
 
 .hider{
 	text-align: left;
 	padding-right: 30px;
 	display: none;
-}
-
-ul{
-	flex-wrap: wrap;
+	margin-right: 10px;
 }
 
 .post-form{

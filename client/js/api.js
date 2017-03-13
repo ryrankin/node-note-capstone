@@ -89,14 +89,14 @@ var displayNotes = function(notes){
 						'<ul id="id" style="display:none">' + value.id + '</ul>' +
 							'<div class="delete-btn">' +
 								'<button class="btn div-button">' +
-									'<img src="delete.png" id="delete">' +
+									'<img src="plus.png" id="delete">' +
 								'</button>' +
 							'</div><br>' +
 						'</div>';
 		});
 	}
 	$('.js-search-form').html(html);
-	
+	$('.js-query').val();
 }
 
 
@@ -121,8 +121,7 @@ $(document).ready(function(){
 	$('.submit-btn').on('click', function(event){
 		event.preventDefault();
 		var title = $(this).parent().children('.title-box').val();
-		var text = $(this).parent().children('.content-box').val();
-		var	content = text.replace(/\r?\n/g, '<br />');
+		var content = $(this).parent().children('.content-box').val();
 		var date = $('#date').context.lastModified;
 		var id = $(this).parent().attr('#id');
 
@@ -133,7 +132,6 @@ $(document).ready(function(){
 			createNote(title, content, date);
 			}		
 		clearForm();
-		getDataFromApi();
 	});
 
 	$('.clear-btn').on('click', function(event){
@@ -165,7 +163,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$('js.query').keyup(function(){
+	/*$('js.query').keyup(function(){
 		var query = $(this).val(), count = 0;
 		$('.inline-form-group ul').each(function(){
 			if ($(this).text().search(new RegExp(query, "i")) < 0){
@@ -175,7 +173,7 @@ $(document).ready(function(){
 				count++
 			}
 		})
-	});
+	});*/
 
 
 });

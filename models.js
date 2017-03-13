@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 const noteSchema = mongoose.Schema({
 	title: {type: String, required: true},
-	content: {type: String, text: true, $diacriticSensitive: true},
-	date: {type: Date, default: Date.now }
+	content: {type: String, text: true},
+	date: {type: Date, default: Date.now}
 });
-noteSchema.index({content: 'text'});
+noteSchema.index({'$**': 'text'});
 
 
 noteSchema.methods.apiRepr = function(){
