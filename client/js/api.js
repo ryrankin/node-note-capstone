@@ -15,14 +15,13 @@ var getDataFromApi = function(){
 
 var updateSearch = function(){
 	var query = $('.js-query').val();
-		$.ajax({
+	$.ajax({
 		url: '/search?search=' + query,
 		success: function(data, e){
-		displayNotes(data);
+			displayNotes(data);
 		},
 		dataType: 'json'
 	});
-
 }
 
 var createNote = function(title, content, date){
@@ -158,7 +157,6 @@ $(document).ready(function(){
 			dataType: 'json'
 		})
 	})
-	
 	$('.js-query').keydown(function(e){
 		var query = $('.js-query').val();
 			if(query !== ''){
@@ -191,10 +189,6 @@ $(document).ready(function(){
 		console.log(id);
 		populatePostForm(title, content, date, id);
 	}); */
-
-
-
-
 
 
 
