@@ -5,7 +5,7 @@ const noteSchema = mongoose.Schema({
 	content: {type: String, text: true},
 	date: {type: Date, default: Date.now}
 });
-noteSchema.index({'$**': 'text'});
+noteSchema.index({content: 'text'});
 
 
 noteSchema.methods.apiRepr = function(){

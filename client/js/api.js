@@ -1,6 +1,6 @@
-var searchString ='';
+var searchString = $('.js-query').val();
 var js_search_form = $('.js-search-form');
-var postForm = $('#post-form')
+var postForm = $('#post-form');
 
 
 var getDataFromApi = function(){
@@ -14,13 +14,15 @@ var getDataFromApi = function(){
 }
 
 var updateSearch = function(){
-	$.ajax({
+	var query = $('.js-query').val();
+		$.ajax({
 		url: '/search?search=' + query,
 		success: function(data, e){
-		dataisplayNotes(data);
+		displayNotes(data);
 		},
 		dataType: 'json'
 	});
+
 }
 
 var createNote = function(title, content, date){
@@ -36,7 +38,7 @@ var createNote = function(title, content, date){
 		dataType: 'json',
 		contentType: 'application/json'
 	})
-	.done(getDataFromApi());
+	.done(getDataFromApi);
 }
 
 var updateNote = function(title, content, date, id){
@@ -76,9 +78,8 @@ var clearForm = function(){
 var displayNotes = function(notes){
 	var html = "";
 	if(notes.length === 0){
-		getDataFromApi();
-		//html += '<p>No search results for ' + SEARCHTERM + '</p>';
-	} else {
+		html += '<p>No search results for ' + searchString + '</p>';
+		} else {
 		$.each(notes, function(index, value){
 			var date = new Date(value.date);
 					html += 
@@ -155,36 +156,31 @@ $(document).ready(function(){
 			displayNotes(data);
 			},
 			dataType: 'json'
-		});
+		})
 	})
+	
 	$('.js-query').keydown(function(e){
-		if(e.which == 13){
-		$('#search').click();
+		var query = $('.js-query').val();
+			if(query !== ''){
+		//if(e.which == 13){
+			$('#search').click();
+		}
+	}); 
+
+	$('.js-query').keydown(function(e){
+		var query = $('.js-query').val();
+		console.log(query);
+		if(e.which === 8 && query == ''){
+			getDataFromApi();
 		}
 	});
+	
 
-	/*$('js.query').keyup(function(){
-		var query = $(this).val(), count = 0;
-		$('.inline-form-group ul').each(function(){
-			if ($(this).text().search(new RegExp(query, "i")) < 0){
-				$(this).fadeOut();
-			} else {
-				$(this).show();
-				count++
-			}
-		})
-	});*/
+
+
 
 
 });
-
-/*	$('.js-query').keypress(function(e){
-		if(e.which == 8){
-			$('#search').click();
-		} else {
-			getDataFromApi();
-		}
-	}) */
 
 /*  $('div').on('click', '.delete-btn > .edit-button', function(){
 		var title = $('#title');
