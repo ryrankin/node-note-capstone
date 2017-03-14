@@ -108,14 +108,105 @@ describe ('notes API resource', function(){
 		}
 	});
 
-	return chai.request(app)
-	.post('/notes')
-	.send(newNote)
-	.then(function(res){
-		res.should
-	})
+		return chai.request(app)
+		.post('/notes')
+		.send(newNote)
+		.then(function(res){
+			res.should.have.status(201);
+			res.should.be.json;
+			res.body.should.be.a('object');
+			res.body.should.include.keys(
+				'id', 'title', 'content', 'date');
 
-})
+			res.body.id.should.not.be.null;
+			res.body.title.should.equal(newNote.title);
+			res.body.content.should.equal(newNote.content);
+			res.body.content.should.equal(newNote.date);
+			return Notes.findById(res.body.id).exec();
+	
+		})
+		.then(function(notes){
+			notes.title.should.equal(newNote.title);
+			notes.content.should.equal(newNote.content);
+			notes.date.should.equal(newNote.date);
+		});
+	});
+};
+
+		describe('PUT endpoint', function(){
+			it('should update fields sent', function(){
+				const updateData = {
+					title: "test note title here",
+					content: "test content for note is right here",
+					date: '03/03/17'
+				}
+
+				return Notes
+					.findOne()
+					.exec()
+					.then(function(notes){
+						updateData.id = notes.id;
+
+						return chai.request(app)
+							.put(`/notes/${notes.id}`)
+							.send(updateData);
+					})
+
+					.then(function(res){
+						res.should.have.status(201);
+						res.should.be.json;
+						res.body.should.be.a('object');
+						res.body.title.should.equal(updateData.title);
+						res.body.content.should.equal(updateData.content);
+						res.body.date.should.equal(updateData.date);
+
+						return Notes.findById(updateData.id).exec();
+					})
+					.then(function(notes){
+						notes.title.should.equal(updateData.title);
+						notes.content.should.equal(updateData.content);
+						notes.date.should.equal(updateData.date);
+					});
+				});
+			});
+
+		describe('DELETE endpoint', function(){
+			it('should delete a note by id', function(){
+
+				let notes;
+
+				return Notes
+				.findOne()
+				.exec()
+				.then(function(_notes){
+					notes = _notes;
+					return chai.request(app).delete(`/notes/${notes.id}`);
+				})
+				.then(function(res){
+					res.should.have.status(204);
+					return Notes.findById(notes.id).exec();
+				})
+				.then(function(_notes){
+					should.not.exist(_notes);
+				});
+			});
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
