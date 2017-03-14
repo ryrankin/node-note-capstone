@@ -76,7 +76,7 @@ describe ('notes API resource', function(){
 
 			let resNotes;
 			return chai.request(app)
-			.get('/notes')
+			.get('/notes/:id')
 			.then(function(res){
 				res.should.have.status(200);
 				res.should.be.json;
@@ -104,25 +104,24 @@ describe ('notes API resource', function(){
 		const newNote = {
 			title: faker.lorem.sentence(),
 			content: faker.lorem.text(),
-			date: faker.lorem.date()
-		}
-	});
+			date: '03/03/17'
+	};
 
 		return chai.request(app)
-		.post('/notes')
-		.send(newNote)
-		.then(function(res){
-			res.should.have.status(201);
-			res.should.be.json;
-			res.body.should.be.a('object');
-			res.body.should.include.keys(
-				'id', 'title', 'content', 'date');
+			.post('/notes')
+			.send(newNote)
+			.then(function(res){
+				res.should.have.status(201);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.should.include.keys(
+					'id', 'title', 'content', 'date');
 
-			res.body.id.should.not.be.null;
-			res.body.title.should.equal(newNote.title);
-			res.body.content.should.equal(newNote.content);
-			res.body.content.should.equal(newNote.date);
-			return Notes.findById(res.body.id).exec();
+				res.body.id.should.not.be.null;
+				res.body.title.should.equal(newNote.title);
+				res.body.content.should.equal(newNote.content);
+				res.body.content.should.equal(newNote.date);
+					return Notes.findById(res.body.id).exec();
 	
 		})
 		.then(function(notes){
@@ -131,7 +130,7 @@ describe ('notes API resource', function(){
 			notes.date.should.equal(newNote.date);
 		});
 	});
-};
+});
 
 		describe('PUT endpoint', function(){
 			it('should update fields sent', function(){
@@ -139,7 +138,7 @@ describe ('notes API resource', function(){
 					title: "test note title here",
 					content: "test content for note is right here",
 					date: '03/03/17'
-				}
+				};
 
 				return Notes
 					.findOne()
