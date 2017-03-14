@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: YqN6+1/HHbJ2EhqepIBWpuBa9bqsjxeLHZyt90uf7MQpi0Yv4NA+uCTjl2UAycXQ2Lxi6T2rKEtXpHpRV961edET31fIH72dTKJwbfyDo8OvCwfY/F0PXf7FDyMDE8/FFwERSHHKcyHyTt7MyWglcnxXyO+NBkL2DASEsF0XHcu19YYgZVKoecYq5KxONeFrD5W8KQQGtzAxt2lgM+Y2/gSa7LUa6jQvVlacvkmATHn4zXrq7PqTsabvkkaY03B//A60AH7EH8vDk2RdO2xJxsYcdp6piVroTNCyU+XDakiOb7VBf7TzKZ+2tRyjfPf9eAnupWQN2pYVCLj2RPiv+6Ws555lzXQGECho9ouNUNR8eYTf0gSXAFTnVnMjBlpWeJQ5tsx8WKto7UUmD+x5ePerzxVNQzNdNvC7EGfZXtbLzCfxLPicMJCyaCpL1KIpwNJRptr/c76nhfVW3UPNdgad0p19SVj9jBLSgg1c0vcB2BRIuSlrVtyZY99Na4SiPOr8ma5mdwc/J8O9m4I/O2pghnZ5/W9SXJ7TFM4QXddp/P+Viga2kioe2eE7oyPb0UrgXGArdY1UlM/DJUcCIIVNJYRFkkkHGbFEsrBeGoeRgxQw8/VyCYnnidngjvul12xuMSYOcCYm5H4ke4FIcaSa9ZEjXdZ5c1nhVD6qwms=
-  app: node-note-capstone
+  app: sheltered-brook-18249
   on:
     repo: ryrankin/node-note-capstone
