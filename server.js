@@ -11,9 +11,8 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json())
-app.use(express.static('client'));
+app.use(express.static('public'));
 mongoose.Promise = global.Promise;
-
 
 
 app.get('/notes', (req, res) =>{
@@ -47,7 +46,8 @@ app.get('/search', (req, res) => {
 	console.log(searchString);
 	Notes.find({$text: {
 		$search: searchString,
-		$diacriticSensitive: true }})
+		$diacriticSensitive: true }
+		})
 	.limit(10)
 	.exec(function(err, notes){
 		if(err){
@@ -57,8 +57,6 @@ app.get('/search', (req, res) => {
 		}
 	});
 });
-
-
 
 app.post('/notes', (req, res) => {
 	const requiredFields = ['title', 'content', 'date'];

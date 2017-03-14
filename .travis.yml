@@ -1,4 +1,9 @@
 language: node_js
-node_js: node_js
-services:
-  - mongodb
+node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: Tf6ZyvuzGJcqsbOsDQvDtKnB139YxhlbXvXHFOWl1YBKExMGGPgrXILepqyCcQ2iuxVdCeoB7JngbPMceFan0DiP5PIPoE/9NT2rEIukP9DijjMaX9+Txvd0LbTPWeBwklJnMxKTVNWPwgV8sE5ENRC3PeU6wUgfQPP9IbIXlOoYnw+rLt2zbaGIzdKQ2jsAayRey7K7MHNRd3CAJ4kyacISPTkDirYv9p6MAv/j52R8a5APfwXeZZQGG85nIZPT/R6T7loWXA54NBMbZohBY/cTmNVlZScbA+g+8SHhuG2AzPPpmM38Zyu5OHNzuW8VLC9uQCex0dcTBmoxqJRnIYOlqh4P/7oS4tt+TJ6hpG1njTENJpeKqgFk4fW19bcflFTRaujkXKWtzfdqInP6IEZrjNw3gO5LjmKykb8Zqxa/TAbUGsB1JLuFFH3AqnpX7DL1FhfoiRsTmTUt6hAhTnSs/cDfEuBK47SAoNsf2fk8EIXg8atKqSRchN81QOX1MYPNhW3QpMTdoDA7oV8dI95WwFo8ylbfIZl2ld/XMmILe9ANz1KXXEjFwi6GwnL5Sm1R4p6bYhbT0g9Ybf/uS/Mysglqgm83w+q5CK1i+Ie1WKbJ+f1C9X2LOv6DP4EyHpqRS1P6ZqcZcOX2GSEvHkleMB2h3ccZwQUwgRU7sf4=
+  app: peaceful-retreat-40133
+  on:
+    repo: ryrankin/note-deploy

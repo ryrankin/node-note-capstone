@@ -7,7 +7,6 @@ const noteSchema = mongoose.Schema({
 });
 noteSchema.index({content: 'text'});
 
-
 noteSchema.methods.apiRepr = function(){
 	return {
 		id: this._id,
@@ -17,7 +16,6 @@ noteSchema.methods.apiRepr = function(){
 
 	};
 }
-
 
 const Notes = mongoose.model('Notes', noteSchema);
 
