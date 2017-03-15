@@ -80,12 +80,12 @@ var displayNotes = function(notes){
 		html += '<p>No search results for ' + searchString + '</p>';
 		} else {
 		$.each(notes, function(index, value){
-			var date = new Date(value.date);
+			//var date = new Date(value.date);
 					html += 
 					'<div class="inline-form-group">' + 
 						'<li id="title">' + value.title + '</li>' +
 						'<ul id="content" class="hider">' + value.content + '</ul>' +
-						'<ul id="date" class="hider">' + date.toDateString() + '</ul>' + 
+						'<ul id="date" class="hider">' + /*date.toDateString()*/ value.date + '</ul>' + 
 						'<ul id="id" style="display:none">' + value.id + '</ul>' +
 							'<div class="delete-btn">' +
 								'<button class="btn div-button">' +

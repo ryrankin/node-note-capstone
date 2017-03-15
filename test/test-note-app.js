@@ -29,7 +29,7 @@ function seedNoteData(){
 		seedData.push({
 			title: faker.lorem.sentence(),
 			content: faker.lorem.text(),
-			data: faker.date.past()
+			date: faker.date.recent()
 		});
 	}
 	return Notes.insertMany(seedData);
@@ -76,7 +76,7 @@ describe ('notes API resource', function(){
 
 			let resNotes;
 			return chai.request(app)
-			.get('/notes/:id')
+			.get('/notes')
 			.then(function(res){
 				res.should.have.status(200);
 				res.should.be.json;
@@ -94,18 +94,20 @@ describe ('notes API resource', function(){
 
 			resNotes.title.should.equal(notes.title);
 			resNotes.content.should.equal(notes.content);
-			resNotes.date.should.equal(notes.content);
+			resNotes.date.should.equal(notes.date);
 		});
 	});
 });
 
 	describe('POST endpoint', function(){
 
+		it('should add a new note', function(){
+
 		const newNote = {
 			title: faker.lorem.sentence(),
 			content: faker.lorem.text(),
-			date: '03/03/17'
-	};
+			date: faker.date.recent()
+		};
 
 		return chai.request(app)
 			.post('/notes')
@@ -120,7 +122,7 @@ describe ('notes API resource', function(){
 				res.body.id.should.not.be.null;
 				res.body.title.should.equal(newNote.title);
 				res.body.content.should.equal(newNote.content);
-				res.body.content.should.equal(newNote.date);
+				res.body.date.should.equal(newNote.date);
 					return Notes.findById(res.body.id).exec();
 	
 		})
@@ -133,11 +135,12 @@ describe ('notes API resource', function(){
 });
 
 		describe('PUT endpoint', function(){
+			
 			it('should update fields sent', function(){
 				const updateData = {
-					title: "test note title here",
-					content: "test content for note is right here",
-					date: '03/03/17'
+					title: 'test note title here',
+					content: 'test content for note is right here',
+					date: faker.date.recent()
 				};
 
 				return Notes
@@ -190,6 +193,7 @@ describe ('notes API resource', function(){
 				});
 			});
 		});
+	});
 
 
 
