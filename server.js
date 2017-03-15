@@ -86,6 +86,7 @@ app.post('/notes', (req, res) => {
 app.delete('/notes/:id', (req, res) =>{
 	Notes
 		.findByIdAndRemove(req.params.id)
+		.exec()
 		.then(() => {
 			res.status(204).json({message: 'success'});
 		})
