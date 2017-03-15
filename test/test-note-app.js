@@ -86,7 +86,7 @@ describe ('notes API resource', function(){
 
 				res.body.forEach(function(notes){
 					notes.should.be.a('object');
-					notes.should.include.keys('id', 'title', 'content', 'date');
+					notes.should.include.keys('id', 'title', 'content');
 				});
 			resNotes = res.body[0];
 			return Notes.findById(resNotes.id).exec();
