@@ -29,7 +29,7 @@ function seedNoteData(){
 		seedData.push({
 			title: faker.lorem.sentence(),
 			content: faker.lorem.text(),
-			date: faker.date.recent()
+		//	date: faker.date.recent()
 		});
 	}
 	return Notes.insertMany(seedData);
