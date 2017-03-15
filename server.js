@@ -135,9 +135,9 @@ app.use('*', function(req, res){
 
 let server;
 
-function runServer(datbaseUrl=DATABASE_URL, port=PORT){
+function runServer(databaseUrl=DATABASE_URL, port=PORT){
 	return new Promise((resolve, reject) => {
-		mongoose.connect(datbaseUrl, err => {
+		mongoose.connect(databaseUrl, err => {
 			if (err){
 				return reject(err);
 			}
