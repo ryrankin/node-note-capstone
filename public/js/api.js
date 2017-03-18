@@ -63,7 +63,7 @@ var deleteNote = function(id){
 		dataType: 'json',
 		contentType: 'application/json'
 	})
-	.done(getDataFromApi;
+	.done(getDataFromApi());
 }	
 
 var clearForm = function(){
