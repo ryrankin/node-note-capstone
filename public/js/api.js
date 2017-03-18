@@ -63,7 +63,7 @@ var deleteNote = function(id){
 		dataType: 'json',
 		contentType: 'application/json'
 	})
-	.done(getDataFromApi());
+	.done(getDataFromApi;
 }	
 
 var clearForm = function(){
@@ -157,7 +157,7 @@ $(document).ready(function(){
 			dataType: 'json'
 		})
 	})
-	$('.js-query').keydown(function(e){
+	$('.js-query').keyup(function(e){
 		var query = $('.js-query').val();
 			if(query !== ''){
 		//if(e.which == 13){
@@ -165,7 +165,7 @@ $(document).ready(function(){
 		}
 	}); 
 
-	$('.js-query').keydown(function(e){
+	$('.js-query').keyup(function(e){
 		var query = $('.js-query').val();
 		console.log(query);
 		if(e.which === 8 && query == ''){

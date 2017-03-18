@@ -4,6 +4,7 @@ exports.DATABASE_URL = 'mongodb://ryrankin:Mn7u5g5a223@ds161179.mlab.com:61179/n
 				'mongodb://localhost/note-cap';
 
 exports.TEST_DATABASE_URL = (
+	'mongodb://ryrankin:Mn7u5g5a223@ds161179.mlab.com:61179/note-cap' ||
 	process.env.TEST_DATABASE_URL ||
 	'mongodb://localhost/test-note-app');
 
